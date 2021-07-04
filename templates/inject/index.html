@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+<h2>Let's play with <b style="color: blueviolet;">SQL Injection</b>, <b style="color: palevioletred;">Cross-site Scripting</b> </h2>    
+<p>Below is a list of movies. And a form to add a movie to the database.<br> 
+    Upon clicking "Add Movie"...
+    <br>
+    This'll be executed on Sqlite: <b>INSERT INTO sqlinject_movie(name, year_released) values('a', 'b');</b> in which <b>a = movie-name</b> & <b>b = year-released</b>
+    <br>
+    <br>
+    Let's <i style="color: blueviolet; font-weight: bolder;">SQL Inject</i> it<hr>
+    To <b><i>add a new movie</i></b>, you can type: <b style="color: red;">','');INSERT INTO sqlinject_movie(name) values('hack');--</b>
+    <br>
+    To <b><i>delete one</i></b>, you can: <b style="color: red;">','');DELETE FROM sqlinject_movie WHERE name='<i style="color:green;">moviename</i>';--</b>
+    <br>
+    How about <b><i>dropping the whole table?</i></b>: <b style="color: red;">','');DROP TABLE sqlinject_movie;--</b>
+    <br>
+    <br>
+    Let's <i style="color: palevioletred; font-weight: bolder;">Cross-site Script</i> it<hr>
+    Add a movie with this name: <b style="color: red;">&lt;script&gt;alert("You have been hacked!"); &lt;/script&gt;</b>
+    <br>
+    Remove this page's content <b style="color: red;">&lt;script&gt;document.querySelector(".wrapper").remove();&lt;/script&gt;</b>
+
+</p>
+<h3 class='title'>-- Movie List --</h3>
+{% if gone %}
+<a href="{% url 'inject:regenerate' %}">Table was deleted. Click here to regenerate database.</a>
+{% endif %}
+<ul>
+{% for movie in movies %}
+<li>{{movie.name|safe }} ({{movie.year_released}})</li>
+{% endfor %}
+</ul>
+
+<form action="{% url 'inject:inject' %}", method="POST">
+    {{ form.as_p }}
+    <input type='submit' value="Add movie">
+</form>
+{% endblock %}
