@@ -21,4 +21,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('sqlinject/', include('sqlinject.urls')),
+    path('csrf_attack/',views.csrf_attack,name='csrf'),
 ]

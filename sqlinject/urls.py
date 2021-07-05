@@ -7,5 +7,4 @@ urlpatterns = [
    path('',views.index, name='index'), 
    path('inject/', views.inject, name='inject'),
    path('regenerate/', views.regenerate_table, name='regenerate'),
-   path('csrf_attack/',views.csrf_attack,name='csrf'),
 ]
