@@ -9,6 +9,8 @@ import subprocess
 import html, sys, traceback
 # Create your views here.
 
+def csrf_attack(r):
+    return render(r,"csrf_attack.html")
 
 def index(r):
     form = MovieForm()
