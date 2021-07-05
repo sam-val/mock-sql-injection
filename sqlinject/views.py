@@ -7,6 +7,7 @@ import sqlite3
 from django.db.utils import OperationalError
 import subprocess
 import html, sys, traceback
+
 # Create your views here.
 def index(r):
     form = MovieForm()
